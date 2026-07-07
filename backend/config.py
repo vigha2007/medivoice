@@ -42,9 +42,13 @@ class Config:
 
     # --- CORS ---
     # Comma separated list of allowed origins (frontend dev server by default)
-    CORS_ORIGINS = os.environ.get(
-        "CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173"
-    ).split(",")
+    # Automatically strips spaces and trailing slashes for robustness.
+    CORS_ORIGINS = [
+        origin.strip().rstrip("/")
+        for origin in os.environ.get(
+            "CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173"
+        ).split(",")
+    ]
 
 
 class DevelopmentConfig(Config):
