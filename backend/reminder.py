@@ -162,7 +162,16 @@ def init_scheduler(app) -> BackgroundScheduler:
     Registers the missed-dose sweep to run every minute, and ensures
     the scheduler shuts down cleanly when the process exits.
     """
-    scheduler = BackgroundScheduler(daemon=True)
+    import os
+    import pytz
+
+    tz_name = os.environ.get("TZ", "UTC")
+    try:
+        tz = pytz.timezone(tz_name)
+    except Exception:
+        tz = pytz.UTC
+
+    scheduler = BackgroundScheduler(daemon=True, timezone=tz)
     scheduler.add_job(
         func=lambda: sweep_missed_doses(app),
         trigger="interval",
