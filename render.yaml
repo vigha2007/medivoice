@@ -14,7 +14,7 @@ services:
       - key: JWT_SECRET_KEY
         generateValue: true
       - key: CORS_ORIGINS
-        value: https://medivoice-frontend.onrender.com
+        value: https://medivoice-frontend-g82p.onrender.com
       - key: DATABASE_URL
         sync: false
 
@@ -26,7 +26,7 @@ services:
     staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
-        value: https://medivoice-backend.onrender.com/api
+        value: https://medivoice-backend-7rtt.onrender.com/api
     routes:
       - type: rewrite
         source: /*
